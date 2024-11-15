@@ -1,0 +1,19 @@
+diff a/pkg/session/session.go b/pkg/session/session.go	(rejected hunks)
+@@ -112,6 +112,7 @@ import (
+ 	"github.com/tikv/client-go/v2/oracle"
+ 	tikvutil "github.com/tikv/client-go/v2/util"
+ 	"go.uber.org/zap"
++	"go.uber.org/zap/zapcore"
+ )
+ 
+ // Session context, it is consistent with the lifecycle of a client connection.
+@@ -3926,7 +3927,8 @@ func logGeneralQuery(execStmt *executor.ExecStmt, s *session, isPrepared bool) {
+ 		if !vars.EnableRedactLog {
+ 			query += vars.PlanCacheParams.String()
+ 		}
+-		logutil.BgLogger().Info("GENERAL_LOG",
++
++		fields := []zapcore.Field{
+ 			zap.Uint64("conn", vars.ConnectionID),
+ 			zap.String("session_alias", vars.SessionAlias),
+ 			zap.String("user", vars.User.LoginString()),

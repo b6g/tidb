@@ -1,0 +1,10 @@
+diff a/pkg/executor/adapter.go b/pkg/executor/adapter.go	(rejected hunks)
+@@ -1996,7 +1996,7 @@ func (a *ExecStmt) GetTextToLog(keepHint bool) string {
+ 	} else if sensitiveStmt, ok := a.StmtNode.(ast.SensitiveStmtNode); ok {
+ 		sql = sensitiveStmt.SecureText()
+ 	} else {
+-		sql = sessVars.StmtCtx.OriginalSQL + sessVars.PlanCacheParams.String()
++		sql = a.OriginText() + sessVars.PlanCacheParams.String()
+ 	}
+ 	return sql
+ }
